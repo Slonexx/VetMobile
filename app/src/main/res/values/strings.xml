@@ -1,5 +1,31 @@
 <resources>
-    <string name="app_name">VetMobile</string>
+    <string name="app_name"><b>VetMobile.kz</b></string>
 
-    <string name="Login_SignIn">Войти</string>
+    <string name="Email">Email</string>
+    <string name="Password">Пароль</string>
+    <string name="Sign_In">Войти</string>
+
+    <string name="Login_Head">Авторизация</string>
+    <string name="Login_No_Account">Нет аккаунта?</string>
+    <string name="Login_Create_Account"><u>Создать!</u></string>
+    <string name="Login_ViewEdit_email">Введите Email</string>
+    <string name="Login_ViewEdit_Password">Введите пароль</string>
+
+    <string name="Register_Head">Регистрация</string>
+    <string name="Register_Create">Cоздать!</string>
+    <string name="Register_Name">Ваше имя</string>
+    <string name="Register_Phone">Номер телефона</string>
+
+    <string name="Service_name">Выберите услугу</string>
+    <string name="Service_Doctor">Ваш доктор</string>
+    <string name="Service_Time">Время приёма</string>
+    <string name="Service_render_add">записаться</string>
+
+    <string name="Profile_info">Ваши данные</string>
+    <string name="Profile_animals">Количество животных:</string>
+    <string name="Profile_Render">Записей на прием:</string>
+    <string name="Profile_Last_Clinic">Последний раз были в</string>
+    <string name="ProfileEdit">Изменить данные об аккаунте</string>
+
+
 </resources>

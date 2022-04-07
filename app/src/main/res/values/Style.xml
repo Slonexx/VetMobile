@@ -20,7 +20,7 @@
     </style>
 
     <style name="Text_main_hader">
-        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
         <item name="android:shadowColor">@color/_Black_Light</item>
         <item name="android:shadowDx">2</item>
         <item name="android:shadowDy">2</item>
@@ -29,11 +29,52 @@
         <item name="android:textSize">22dp</item>
     </style>
 
-    <style name="ButtonNext">
-        <item name="android:background">@drawable/button_style_next</item>
-        <item name="android:fontFamily">@font/roboto_medium</item>
-        <item name="android:textColor">@color/white</item>
+    <style name="EditTextLayout">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/_Black_Light</item>
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="EditTextLayout_H1_Black" parent="EditTextLayout">
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <style name="EditTextLayout_H1_White" parent="EditTextLayout_H1_Black">
+        <item name="android:textColor">@color/_White_Light</item>
+    </style>
+
+    <style name="EditTextLayout_H2_Black" parent="EditTextLayout">
         <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="EditTextLayout_H2_White" parent="EditTextLayout_H2_Black">
+        <item name="android:textColor">@color/_White_Light</item>
+    </style>
+
+    <style name="EditTextLayout_H3_Black" parent="EditTextLayout">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="EditTextLayout_H3_White" parent="EditTextLayout_H3_Black">
+        <item name="android:textColor">@color/_White_Light</item>
+    </style>
+
+    <style name="ButtonNext">
+        <item name="android:background">@drawable/button_style_login</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginStart">64dp</item>
+        <item name="android:layout_marginEnd">64dp</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="ButtonServiceRenderAdd">
+        <item name="android:background">@drawable/button_style_login</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginStart">64dp</item>
+        <item name="android:layout_marginEnd">64dp</item>
+        <item name="android:textSize">18dp</item>
     </style>
 
 </resources>
