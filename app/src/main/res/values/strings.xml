@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VetMobile</string>
+
+    <string name="Login_SignIn">Войти</string>
+</resources>

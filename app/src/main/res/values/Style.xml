@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="OneBackgroud">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#DCDCDC</item>
+    </style>
+
+    <style name="LayoutGradint">
+        <item name="android:background">@drawable/style__layout_and_ckrugl</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+    <style name="LayoutGradient_botton">
+        <item name="android:background">@drawable/gradient_new</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">10dp</item>
+    </style>
+
+    <style name="Text_main_hader">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:shadowColor">@color/_Black_Light</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22dp</item>
+    </style>
+
+    <style name="ButtonNext">
+        <item name="android:background">@drawable/button_style_next</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+</resources>
