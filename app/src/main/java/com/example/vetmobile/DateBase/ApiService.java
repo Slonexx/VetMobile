@@ -29,6 +29,6 @@ public interface ApiService {
     public Call<JSONResponseShow> getClinicShow(@Path("id") int postId);
 
            @GET("/API/V1/Service/{id}")
-    public Call<JSONResponseShow> getSetviceShow(@Path("id") int postId);
+    public Call<JSONResponseShow> getServiceShow(@Path("id") int postId);
 
 }
