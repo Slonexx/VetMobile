@@ -29,7 +29,4 @@ public class ServiceModel {
         return Descriptions;
     }
 
-    public int getClinic_id() {
-        return Clinic_id;
-    }
 }
