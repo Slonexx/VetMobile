@@ -7,6 +7,16 @@ public class UserModel {
     private String phone;
     private String email;
     private String password;
+    private String token;
+    UserModel User;
+
+    public UserModel getUser() {
+        return User;
+    }
+
+    public String getToken() {
+        return token;
+    }
 
     public String getPassword() {
         return password;
