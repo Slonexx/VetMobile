@@ -2,6 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:duration="@android:integer/config_longAnimTime"
+    android:fromXDelta="100%p"
+    android:toXDelta="0%p"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Auth.RegisterActivity">
@@ -30,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="200dp"
             android:padding="30dp"
+            android:transitionName="loginTransitionToRegistr"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
