@@ -21,6 +21,8 @@ public interface ApiService {
           @POST("/API/V1/Login")
    public Call<UserModel> userLogin(@Body LoginRequired required);
 
+          @GET("/API/V1/User/{id}")
+    public Call<JSONResponseShow> getUserShow(@Path("id") int postId);
 
            @GET("/API/V1/Clinic")
     public Call<JSONResponse> getClinicList();
@@ -30,5 +32,8 @@ public interface ApiService {
 
            @GET("/API/V1/Service/{id}")
     public Call<JSONResponseShow> getServiceShow(@Path("id") int postId);
+
+            @GET("/API/V1/Doctor/{id}")
+    public Call<JSONResponseShow> getDoctorShow(@Path("id") int postId);
 
 }
