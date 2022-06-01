@@ -3,13 +3,13 @@ package com.example.vetmobile.Auth;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Pair;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,10 +18,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.vetmobile.DateBase.ApiService;
-import com.example.vetmobile.DateBase.Model.DoctorModel;
 import com.example.vetmobile.DateBase.Model.JSONResponseShow;
-import com.example.vetmobile.DateBase.Model.LoginRequired;
-import com.example.vetmobile.DateBase.Model.TimeModel;
+import com.example.vetmobile.DateBase.Required.LoginRequired;
 import com.example.vetmobile.DateBase.Model.UserModel;
 import com.example.vetmobile.DateBase.RetrofitClient;
 import com.example.vetmobile.MainActivity;
@@ -29,6 +27,13 @@ import com.example.vetmobile.R;
 import com.example.vetmobile.SaveDateSharedPreferences;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         setFindViewById();
 
         Token = sharedPreferences.getSPrefToken(sPref, Token);
+        User_id = sharedPreferences.getSPrefUserId(sPref, User_id);
 
         if (Token == ""){
             toComeInUserLayout.setVisibility(View.GONE);
@@ -75,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
 
             User_id = sharedPreferences.getSPrefUserId(sPref, User_id);
             getUser(User_id);
+            //getDownLoadFileUser(User_id);
 
 
         }
@@ -120,7 +127,68 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    private void getDownLoadFileUser(int id)
+    {
+        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+        Call<ResponseBody> call = apiService.DownLoadFileUser(id);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                boolean success = writeResponseBodeToDisk(response.body());
 
+                Toast.makeText(LoginActivity.this, "Download was succesful: " + success, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private boolean writeResponseBodeToDisk(ResponseBody body){
+        try{
+            File futureStudioIconFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    "Future Studio Icon.png");
+            InputStream inputStream = null;
+            OutputStream outputStream = null;
+            try {
+                byte[] fileReader = new byte[4096];
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
+
+                inputStream = body.byteStream();
+                outputStream = new FileOutputStream(futureStudioIconFile);
+
+                while (true){
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1){
+                        break;
+                    }
+                    outputStream.write(fileReader, 0, read);
+
+                    fileSizeDownloaded += read;
+
+                    Log.d("Future Studio", "Future Studio: "+ fileSizeDownloaded + " of "+ fileSize);
+                }
+                outputStream.flush();
+                return  true;
+            } catch (IOException e){
+                return false;
+            } finally {
+                 if (inputStream != null) {
+                     inputStream.close();
+                 }
+                 if (outputStream != null){
+                     outputStream.close();
+                 }
+            }
+        } catch (IOException e){
+            return false;
+        }
+    }
 
     private void loginProcces(){
         if(TextUtils.isEmpty(Email.getText().toString()) || TextUtils.isEmpty(Password.getText().toString())){
@@ -155,13 +223,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     },700);
                 }else {
-                    Toast.makeText(LoginActivity.this, "Login Failed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Ошибка Сервера 404", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
-
+                Log.d("loginRequired", t.toString());
             }
         });
     }
@@ -195,7 +263,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 toComeInUserLayout.setVisibility(View.GONE);
                 LoginLayout.setVisibility(View.VISIBLE);
-                loginProcces();
+                bSignIn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        loginProcces();
+                    }
+                });
             }
         });
 
