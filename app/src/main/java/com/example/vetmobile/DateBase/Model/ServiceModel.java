@@ -10,8 +10,13 @@ public class ServiceModel {
     private String Name_Service;
     private String Descriptions;
     private int Clinic_id;
+
     @SerializedName("Doctor")
     private List<DoctorModel> Doctor;
+
+    public int getClinic_id() {
+        return Clinic_id;
+    }
 
     public List<DoctorModel> getDoctor() {
         return Doctor;

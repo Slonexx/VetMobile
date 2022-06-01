@@ -1,5 +1,7 @@
 package com.example.vetmobile.DateBase.Model;
 
+import java.util.List;
+
 public class UserModel {
     private int id;
     private String name;
@@ -9,6 +11,12 @@ public class UserModel {
     private String password;
     private String token;
     UserModel User;
+
+    private List<AnimailModel> Animal;
+
+    public List<AnimailModel> getAnimal() {
+        return Animal;
+    }
 
     public UserModel getUser() {
         return User;
