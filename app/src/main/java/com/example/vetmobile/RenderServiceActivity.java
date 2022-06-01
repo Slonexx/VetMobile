@@ -96,7 +96,7 @@ public class RenderServiceActivity extends AppCompatActivity {
                 TimeModel[] Models = model.getTime().toArray(new TimeModel[0]);
                 for (TimeModel modelTime: Models){
                     TimeId.add(modelTime.getId());
-                    TimeString = "Дата: "+modelTime.getReceipt_Date().substring(0,2) +" в " + modelTime.getTime().substring(0,5);
+                    TimeString = "Дата: "+modelTime.getReceipt_Date().substring(5,10) +" в " + modelTime.getTime().substring(0,5);
                     TimeDate.add(TimeString);
                 }
                 setTimeAdapter();
@@ -110,17 +110,6 @@ public class RenderServiceActivity extends AppCompatActivity {
         });
     }
 
-/*
-    DoctorModel model = response.body().getDoctor();
-    TimeModel[] Models = model.getTime().toArray(new TimeModel[0]);
-                for (TimeModel modelTime: Models){
-        TimeId.add(modelTime.getId());
-        TimeString += modelTime.getReceipt_Date().substring(5) + modelTime.getTime().substring(0,5);
-        TimeDate.add(TimeString);
-    }
-
-                tv.setText(TimeString);*/
-
     private void setDoctorAdapter(){
         ArrayAdapter<String> adapterDoctor = new ArrayAdapter<>(this, R.layout.drop_down_item, DoctorName_Doctor);
         AutoCompleteTextView aCTV_Doctor = findViewById(R.id.SpinerDoctor);
@@ -129,12 +118,6 @@ public class RenderServiceActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 getTimeDate(DoctorId.get(i));
-
-
-                Toast.makeText(RenderServiceActivity.this, DoctorId.get(i).toString(), Toast.LENGTH_LONG).show();
-
-
-
                 btn_info_doctor.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
