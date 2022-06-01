@@ -1,4 +1,4 @@
-package com.example.vetmobile.DateBase.Model;
+package com.example.vetmobile.DateBase.Required;
 
 public class LoginRequired {
     private String email;
