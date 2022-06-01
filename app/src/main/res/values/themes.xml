@@ -25,6 +25,7 @@
         <item name="colorOnSurface">@color/_Red_More_Darker</item>
         <item name="colorOnBackground">@color/_Black_Light</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
 </resources>
