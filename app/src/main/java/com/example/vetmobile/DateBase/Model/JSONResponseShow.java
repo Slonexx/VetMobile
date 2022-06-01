@@ -1,8 +1,24 @@
 package com.example.vetmobile.DateBase.Model;
 
 public class JSONResponseShow {
-    ClinicModel Clinic;
-    ServiceModel Service;
+    private UserModel User;
+    private AnimailModel Animal;
+    private ClinicModel Clinic;
+    private ServiceModel Service;
+    private DoctorModel Doctor;
+    private TimeModel Time;
+
+    public TimeModel getTime() { return Time; }
+
+    public AnimailModel getAnimal() { return Animal; }
+
+    public UserModel getUser() {
+        return User;
+    }
+
+    public DoctorModel getDoctor() {
+        return Doctor;
+    }
 
     public ServiceModel getService() {
         return Service;
