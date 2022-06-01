@@ -1,5 +1,7 @@
 package com.example.vetmobile.DateBase.Model;
 
+import java.util.List;
+
 public class AnimailModel {
 
         private int id;
@@ -7,6 +9,11 @@ public class AnimailModel {
         private String Type_Animal;
         private String Age_Animal;
         private int User_id;
+        private List<RenderModel> Render;
+
+        public List<RenderModel> getRender() {
+            return Render;
+        }
 
         public int getId() {
             return id;
