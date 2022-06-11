@@ -68,6 +68,13 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+                imgProfileAnimals.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ProfileActivity.this, AnimalActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         },3500);
 
