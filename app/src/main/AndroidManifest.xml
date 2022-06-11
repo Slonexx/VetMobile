@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.vetmobile" >
+    package="com.example.vetmobile">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,12 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.VetMobile" >
+        android:theme="@style/Theme.VetMobile">
+        <activity
+            android:name=".AnimalActivity"
+            android:exported="false" />
         <activity
             android:name=".Auth.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar"/>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".RenderServiceActivity"
             android:exported="false"
@@ -38,7 +41,7 @@
             android:name=".Auth.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" >
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

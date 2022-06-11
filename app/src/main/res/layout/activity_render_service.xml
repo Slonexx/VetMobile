@@ -151,7 +151,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout9"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="@+id/btnRenderService"
         app:layout_constraintEnd_toEndOf="parent"
