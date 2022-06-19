@@ -23,6 +23,7 @@ import com.example.vetmobile.DateBase.Model.RenderModel;
 import com.example.vetmobile.DateBase.Model.UserModel;
 import com.example.vetmobile.DateBase.RetrofitClient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,7 +39,7 @@ public class ProfileActivity extends AppCompatActivity {
     private int QTAnimals, QTRender;
     private ConstraintLayout ProfileLayoutDate;
     private ProgressBar ProfileProgressBar;
-
+    private List<UserModel> putUserExtra = new ArrayList<>();
     private ImageView imgProfilePhoto, imgProfileAnimals, imgProfileRender, imgProfileClinic, btn_profile_to_service, btn_profile_to_main;
     private TextView tvProfileName, tvProfilePhone, tvProfileEmail, tvProfileAnimals, tvProfileRender, tvProfileClinic;
     private Button btnProfileEdit;
@@ -75,6 +76,19 @@ public class ProfileActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
+                btnProfileEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(ProfileActivity.this, UserEditProfileDateActivity.class);
+                            intent.putExtra("id", putUserExtra.get(0).getId());
+                            intent.putExtra("phone", putUserExtra.get(0).getPhone());
+                            intent.putExtra("name", putUserExtra.get(0).getName());
+                            intent.putExtra("password", putUserExtra.get(0).getPassword());
+                            intent.putExtra("Glide", putUserExtra.get(0).getPhoto_id());
+                        startActivity(intent);
+                    }
+                });
             }
         },3500);
 
@@ -88,7 +102,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseShow> call, Response<JSONResponseShow> response) {
                 UserModel model = response.body().getUser();
-
+                putUserExtra.add(model);
                 Glide.with(ProfileActivity.this)
                         .load(model.getPhoto_id())
                         .circleCrop()

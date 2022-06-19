@@ -6,24 +6,29 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.vetmobile.Auth.LoginActivity;
 import com.example.vetmobile.Auth.RegisterActivity;
 import com.example.vetmobile.DateBase.ApiService;
+import com.example.vetmobile.DateBase.Model.AnimailModel;
 import com.example.vetmobile.DateBase.Model.ClinicModel;
 import com.example.vetmobile.DateBase.Model.DoctorModel;
 import com.example.vetmobile.DateBase.Model.JSONResponseShow;
 import com.example.vetmobile.DateBase.Model.ServiceModel;
 import com.example.vetmobile.DateBase.Model.TimeModel;
+import com.example.vetmobile.DateBase.Model.UserModel;
 import com.example.vetmobile.DateBase.RetrofitClient;
 
 import java.util.ArrayList;
@@ -35,26 +40,30 @@ import retrofit2.Response;
 
 public class RenderServiceActivity extends AppCompatActivity {
 
+    private SharedPreferences sPref;
+    private SaveDateSharedPreferences sharedPreferences;
+    private int User_id;
+
     private int getId;
     private String NameClinic, AddressClinic, ImageClinic;
 
+    private List<Integer> AnimalId = new ArrayList<>();
+    private List<String> spinerAnimalNickname = new ArrayList<>();
+    private List<String> AnimmalInfoCard = new ArrayList<>();
     private List<String> spinerServiceName = new ArrayList<>();
     private List<Integer> ServiceId = new ArrayList<>();
     private List<String> ServiceDescriptions = new ArrayList<>();
-
     private List<Integer> DoctorId = new ArrayList<>();
     private List<String> DoctorName_Doctor = new ArrayList<>();
     private List<String> DoctorSpeciality = new ArrayList<>();
-
     private List<Integer> TimeId = new ArrayList<>();
     private List<String> TimeDate = new ArrayList<>();
     private String TimeString = "";
 
-    private TextView tv;
+    private int outAnimalId, outServiceId, outDoctorId, outTimeId;
 
-
-    private ImageView btn_info_service, btn_info_doctor;
-    private ConstraintLayout VisibleInfoService, VisibleInfoDoctor;
+    private ImageView btn_info_service, btn_info_doctor, iv_button_info_animal;
+    private ConstraintLayout VisibleInfoService, VisibleInfoDoctor, visible_info_Animal;
 
 
     private TextView tvNameClinic, tvAddressClinic;
@@ -62,16 +71,41 @@ public class RenderServiceActivity extends AppCompatActivity {
 
     private ImageView render_to_service, render_to_main, render_to_profile;
 
+    private Button btnRenderService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_render_service);
-
         SetAllPiker();
+
+        User_id = sharedPreferences.getSPrefUserId(sPref, User_id);
+
+        getUser(User_id);
+        setAnimalAdapter();
         getServiceData(getId);
         setServiceAdapter();
 
+        btnRenderService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (outAnimalId == 0 || outDoctorId == 0 || outServiceId == 0 || outTimeId == 0){
+                    Toast.makeText(RenderServiceActivity.this, "Выберите всё инфомацию", Toast.LENGTH_LONG).show();
+                }else {
+                    Intent intent = new Intent(RenderServiceActivity.this, TicketActivity.class);
+                    intent.putExtra("outAnimalId", outAnimalId);
+                    intent.putExtra("outClinicId", getId);
+                    intent.putExtra("outServiceId", outServiceId);
+                    intent.putExtra("outDoctorId", outDoctorId);
+                    intent.putExtra("outTimeId", outTimeId);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
+
+
 
     private void setTimeAdapter(){
         ArrayAdapter<String> adapterTime = new ArrayAdapter<>(this, R.layout.drop_down_item, TimeDate);
@@ -80,7 +114,7 @@ public class RenderServiceActivity extends AppCompatActivity {
         aCTV_Time.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                outTimeId = TimeId.get(i);
             }
         });
     }
@@ -105,7 +139,6 @@ public class RenderServiceActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONResponseShow> call, Throwable t) {
-                tv.setText(t.toString());
             }
         });
     }
@@ -133,6 +166,7 @@ public class RenderServiceActivity extends AppCompatActivity {
                     }
                 });
                 VisibleInfoDoctor.setVisibility(View.VISIBLE);
+                outDoctorId = DoctorId.get(i);
             }
         });
     }
@@ -184,6 +218,7 @@ public class RenderServiceActivity extends AppCompatActivity {
                     }
                 });
                 VisibleInfoService.setVisibility(View.VISIBLE);
+                outServiceId = ServiceId.get(i);
             }
         });
     }
@@ -210,12 +245,84 @@ public class RenderServiceActivity extends AppCompatActivity {
         });
     }
 
+    private void setAnimalAdapter() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.drop_down_item, spinerAnimalNickname);
+        AutoCompleteTextView autoCompleteTextView = findViewById(R.id.SpinerAnimal);
+        autoCompleteTextView.setAdapter(adapter);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                iv_button_info_animal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog alertDialog = new AlertDialog.Builder(RenderServiceActivity.this).create();
+                        alertDialog.setTitle("Информация о карточки животного");
+                        alertDialog.setMessage(AnimmalInfoCard.get(i));
+                        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int which){
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        alertDialog.show();
+                    }
+                });
+                visible_info_Animal.setVisibility(View.VISIBLE);
+                outAnimalId = AnimalId.get(i);
+            }
+        });
+    }
+
+    private void getUser(int id)
+    {
+        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
+        Call<JSONResponseShow> call = apiService.getUserShow(id);
+        call.enqueue(new Callback<JSONResponseShow>() {
+            @Override
+            public void onResponse(Call<JSONResponseShow> call, Response<JSONResponseShow> response) {
+                UserModel model = response.body().getUser();
+                AnimailModel[] Models = model.getAnimal().toArray(new AnimailModel[0]);
+                for (AnimailModel animalModel : Models){
+                    spinerAnimalNickname.add(animalModel.getNickname_Animal());
+
+                    String age = animalModel.getAge_Animal();
+                    if (Integer.parseInt(age)>4)
+                        age = animalModel.getAge_Animal() + " лет";
+                    else age = animalModel.getAge_Animal() + " года";
+
+                    AnimalId.add(animalModel.getId());
+                    AnimmalInfoCard.add("Кличка животного: " + animalModel.getNickname_Animal() +"\n" +
+                                        "Возраст животного: " + age + "\n" +
+                                        "Вид животного: " + animalModel.getType_Animal());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseShow> call, Throwable t) {
+            }
+        });
+    }
+
     private  void SetAllPiker(){
+        sPref = getSharedPreferences("User", 0);
+        sharedPreferences = new SaveDateSharedPreferences();
+        User_id = 0;
+        outAnimalId = 0;
+        outServiceId = 0;
+        outDoctorId = 0;
+        outTimeId = 0;
+
+        visible_info_Animal = (ConstraintLayout) findViewById(R.id.visible_info_Animal);
         VisibleInfoService = (ConstraintLayout) findViewById(R.id.visible_info_Service);
         VisibleInfoDoctor = (ConstraintLayout) findViewById(R.id.visible_info_Doctor);
         VisibleInfoService.setVisibility(View.GONE);
         VisibleInfoDoctor.setVisibility(View.GONE);
+        visible_info_Animal.setVisibility(View.GONE);
 
+        btnRenderService = findViewById(R.id.btnRenderService);
+
+        iv_button_info_animal = (ImageView) findViewById(R.id.iv_button_info_animal);
         btn_info_service = (ImageView) findViewById(R.id.iv_button_info_service);
         btn_info_doctor = (ImageView) findViewById(R.id.iv_button_info_doctor);
 

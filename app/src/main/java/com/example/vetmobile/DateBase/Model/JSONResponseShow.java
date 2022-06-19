@@ -7,6 +7,11 @@ public class JSONResponseShow {
     private ServiceModel Service;
     private DoctorModel Doctor;
     private TimeModel Time;
+    private RenderModel Render;
+
+    public RenderModel getRender() {
+        return Render;
+    }
 
     public TimeModel getTime() { return Time; }
 

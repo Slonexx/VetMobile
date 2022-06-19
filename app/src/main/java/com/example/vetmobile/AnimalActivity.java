@@ -59,7 +59,7 @@ public class AnimalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog alertDialog = new AlertDialog.Builder(AnimalActivity.this).create();
                 alertDialog.setTitle("Информация");
-                alertDialog.setMessage("Создает новую карточку животного в которой будет хрониться инфомация о нем и назначение");
+                alertDialog.setMessage("Создает новую карточку животного в которой будет храниться информация о нем и назначение");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int which){
                         dialogInterface.dismiss();
@@ -71,7 +71,10 @@ public class AnimalActivity extends AppCompatActivity {
         btn_new_animal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(AnimalActivity.this, "Новая карта", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(AnimalActivity.this, ChangeAnimalCard.class);
+                intent.putExtra("Nickname_Animal", "");
+                intent.putExtra("Date", "Создание");
+                startActivity(intent);
             }
         });
 

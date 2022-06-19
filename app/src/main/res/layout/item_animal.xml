@@ -100,7 +100,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:paddingBottom="8dp"
-        android:text="Информация о животном"
+        android:text="Информация о питомце"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

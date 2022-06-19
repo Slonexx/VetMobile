@@ -20,6 +20,7 @@
     <string name="Service_Doctor">Ваш доктор</string>
     <string name="Service_Time">Время приёма</string>
     <string name="Service_render_add">записаться</string>
+    <string name="Service_animal_info">Карточка животного</string>
 
     <string name="Profile_info">Ваши данные</string>
     <string name="Profile_animals">Количество животных:</string>
