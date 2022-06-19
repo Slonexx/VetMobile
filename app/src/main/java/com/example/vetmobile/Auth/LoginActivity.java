@@ -127,68 +127,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void getDownLoadFileUser(int id)
-    {
-        ApiService apiService = RetrofitClient.getInstance().create(ApiService.class);
-        Call<ResponseBody> call = apiService.DownLoadFileUser(id);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                boolean success = writeResponseBodeToDisk(response.body());
-
-                Toast.makeText(LoginActivity.this, "Download was succesful: " + success, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-
-    }
-
-    private boolean writeResponseBodeToDisk(ResponseBody body){
-        try{
-            File futureStudioIconFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-                    "Future Studio Icon.png");
-            InputStream inputStream = null;
-            OutputStream outputStream = null;
-            try {
-                byte[] fileReader = new byte[4096];
-                long fileSize = body.contentLength();
-                long fileSizeDownloaded = 0;
-
-                inputStream = body.byteStream();
-                outputStream = new FileOutputStream(futureStudioIconFile);
-
-                while (true){
-                    int read = inputStream.read(fileReader);
-
-                    if (read == -1){
-                        break;
-                    }
-                    outputStream.write(fileReader, 0, read);
-
-                    fileSizeDownloaded += read;
-
-                    Log.d("Future Studio", "Future Studio: "+ fileSizeDownloaded + " of "+ fileSize);
-                }
-                outputStream.flush();
-                return  true;
-            } catch (IOException e){
-                return false;
-            } finally {
-                 if (inputStream != null) {
-                     inputStream.close();
-                 }
-                 if (outputStream != null){
-                     outputStream.close();
-                 }
-            }
-        } catch (IOException e){
-            return false;
-        }
-    }
 
     private void loginProcces(){
         if(TextUtils.isEmpty(Email.getText().toString()) || TextUtils.isEmpty(Password.getText().toString())){

@@ -9,12 +9,15 @@ import com.example.vetmobile.DateBase.Model.UserModel;
 import com.example.vetmobile.DateBase.Required.RenderRequired;
 import com.example.vetmobile.DateBase.Required.UserRequired;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -32,8 +35,10 @@ public interface ApiService {
             @PUT("/API/V1/User/{id}")
     public Call<JSONResponseShow> setChangeUser(@Body UserRequired required, @Path("id") int postId);
 
-            @GET("/API/V1/DownLoadFileUser/{id}")
-    public Call<ResponseBody> DownLoadFileUser(@Path("id") int postId);
+            @Multipart
+            @POST("/API/V1/ChangeFileUser/{id}")
+    public Call<ResponseBody> ChangeImageUser(@Path("id") int postId, @Part MultipartBody.Part image);
+
 
 
 

@@ -128,7 +128,7 @@ public class TicketActivity extends AppCompatActivity {
             button_render_to_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TicketActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(TicketActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

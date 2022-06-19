@@ -58,6 +58,12 @@ public class ChangeAnimalCard extends AppCompatActivity {
                     Toast.makeText(ChangeAnimalCard.this,"Введите данные !", Toast.LENGTH_LONG).show();
                 }else {
                     ChangeRequired();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(new Intent(ChangeAnimalCard.this, ProfileActivity.class));
+                        }
+                    },500);
                 }
             }
         });
@@ -79,12 +85,6 @@ public class ChangeAnimalCard extends AppCompatActivity {
                 public void onResponse(Call<JSONResponseShow> call, Response<JSONResponseShow> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(ChangeAnimalCard.this, "Карточка питомца изменина !", Toast.LENGTH_LONG).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                startActivity(new Intent(ChangeAnimalCard.this, ProfileActivity.class));
-                            }
-                        },500);
                     }
                 }
 
